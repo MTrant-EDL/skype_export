@@ -1,0 +1,29 @@
+name: Build EXE for Skype JSON
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+
+    - name: Install dependencies
+      run: pip install pyinstaller
+
+    - name: Build executable
+      run: pyinstaller --onefile skype_json_to_html.py
+
+    - name: Upload exe as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: skype_export_exe
+        path: dist/skype_json_to_html.exe
