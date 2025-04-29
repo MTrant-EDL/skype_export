@@ -2,7 +2,7 @@ name: Build EXE for Skype JSON
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build:
