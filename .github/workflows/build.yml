@@ -1,4 +1,4 @@
-name: Build EXE for Skype JSON
+name: Build EXE for Skype Export
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # 📝 Hinweis: Du solltest runs-on: windows-latest verwenden, wenn du eine .exe für Windows bauen möchtest – andernfalls bekommst du eine Linux-Binärdatei.
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -14,15 +15,17 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.11"
+        python-version: '3.11'
 
     - name: Install dependencies
-      run: pip install pyinstaller
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
 
     - name: Build executable
       run: pyinstaller --onefile skype_json_to_html.py
 
-    - name: Upload exe as artifact
+    - name: Upload exe as artifact 
       uses: actions/upload-artifact@v3
       with:
         name: skype_export_exe
