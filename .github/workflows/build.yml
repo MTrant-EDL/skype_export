@@ -23,11 +23,14 @@ jobs:
         pip install pyinstaller
 
     - name: Build executable
-      run: pyinstaller --onefile skype_json_to_html.py
-
-    - name: Verify dist folder exists
       run: |
-        if (Test-Path "dist") { Write-Host "dist folder exists" } else { Write-Host "dist folder does not exist"; exit 1 }
+        pyinstaller --onefile skype_json_to_html.py
+        dir dist  # Zeigt den Inhalt des dist-Ordners, um sicherzustellen, dass die .exe-Datei existiert
+
+    - name: Verify dist folder exists and .exe file
+      run: |
+        if (Test-Path "dist/skype_json_to_html.exe") { Write-Host "EXE found" } else { Write-Host "EXE not found"; exit 1 }
+        dir dist  # Zeigt den Inhalt des dist-Ordners zur Überprüfung
 
     - name: Upload exe as artifact 
       uses: actions/upload-artifact@v3
