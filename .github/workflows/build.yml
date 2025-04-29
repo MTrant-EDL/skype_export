@@ -25,6 +25,10 @@ jobs:
     - name: Build executable
       run: pyinstaller --onefile skype_json_to_html.py
 
+    - name: Verify dist folder exists
+      run: |
+        if (Test-Path "dist") { Write-Host "dist folder exists" } else { Write-Host "dist folder does not exist"; exit 1 }
+
     - name: Upload exe as artifact 
       uses: actions/upload-artifact@v3
       with:
